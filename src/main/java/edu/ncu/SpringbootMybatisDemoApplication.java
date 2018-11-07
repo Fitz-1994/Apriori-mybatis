@@ -1,4 +1,4 @@
-package com.winter;
+package edu.ncu;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;

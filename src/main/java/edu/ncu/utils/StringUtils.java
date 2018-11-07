@@ -1,4 +1,4 @@
-package com.winter.utils;
+package edu.ncu.utils;
 
 import java.util.UUID;
 

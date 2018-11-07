@@ -1,6 +1,6 @@
-package com.winter.mapper;
+package edu.ncu.mapper;
 
-import com.winter.model.Project;
+import edu.ncu.model.Project;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

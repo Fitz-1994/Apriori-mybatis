@@ -1,6 +1,6 @@
-package com.winter.service.project;
+package edu.ncu.service.project;
 
-import com.winter.model.Project;
+import edu.ncu.model.Project;
 import net.sf.mpxj.Task;
 
 import java.io.File;

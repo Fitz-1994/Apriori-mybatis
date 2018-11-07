@@ -1,4 +1,4 @@
-package com.winter.model;
+package edu.ncu.model;
 
 import java.util.Date;
 

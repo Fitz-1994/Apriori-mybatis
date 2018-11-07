@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.winter.mapper.ProjectMapper">
+<mapper namespace="edu.ncu.mapper.ProjectMapper">
     <sql id="TABLE_PROJECT">
       PROJECT
     </sql>
@@ -8,7 +8,7 @@
         p.projId, p.parentId, p.level, p.taskName, p.durationDate,p.startDate,p.endDate,p.preTask,p.resource,p.importTime,p.batchNum
     </sql>
     <!-- 插入数据之后返回主键 -->
-    <insert id="addProjectSelective" useGeneratedKeys="true" keyProperty="projId" parameterType="com.winter.model.Project">
+    <insert id="addProjectSelective" useGeneratedKeys="true" keyProperty="projId" parameterType="edu.ncu.model.Project">
         INSERT INTO
         <include refid="TABLE_PROJECT"/>
         <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -77,7 +77,7 @@
         </trim>
     </insert>
     <!-- 获取项目 -->
-    <select id="getProjectsByBatchNum" resultType="com.winter.model.Project">
+    <select id="getProjectsByBatchNum" resultType="edu.ncu.model.Project">
         SELECT
         <include refid="BASE_COLUMN"/>
         FROM

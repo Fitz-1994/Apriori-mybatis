@@ -4,9 +4,14 @@ server:
 spring:
     datasource:
         name: test
-        url: jdbc:mysql://127.0.0.1:3306/mytest?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
-        username: root
-        password: root
+        #财政厅数据库
+#          url: jdbc:mysql://10.108.6.121:3306/czt?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+#          username: root
+#          password: 123
+        #网络中心数据库
+        url: jdbc:mysql://git.ncu.edu.cn:3306/czt?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+        username: cztadmin
+        password: czt123456
         # 使用druid数据源
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver

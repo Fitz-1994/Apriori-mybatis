@@ -1,9 +1,9 @@
-package com.winter.service.project.impl;
+package edu.ncu.service.project.impl;
 
-import com.winter.mapper.ProjectMapper;
-import com.winter.model.Project;
-import com.winter.service.project.ProjectService;
-import com.winter.utils.StringUtils;
+import edu.ncu.mapper.ProjectMapper;
+import edu.ncu.model.Project;
+import edu.ncu.service.project.ProjectService;
+import edu.ncu.utils.StringUtils;
 import net.sf.mpxj.*;
 import net.sf.mpxj.mpp.MPPReader;
 import net.sf.mpxj.mspdi.MSPDIWriter;
