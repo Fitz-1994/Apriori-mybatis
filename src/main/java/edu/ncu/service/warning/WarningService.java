@@ -1,7 +1,9 @@
 package edu.ncu.service.warning;
 
 import edu.ncu.mapper.WarningMapper;
+import edu.ncu.model.FrequentItem;
 import edu.ncu.model.Warning;
+import edu.ncu.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,5 +59,39 @@ public class WarningService {
             }
             return result;
         }
+    }
+
+    public void saveFrequentItems(List<FrequentItem> frequentItems){
+        /*
+        * 1、在Frequent_Items表中添加数据
+        * 2、在Frequent_Warning表中添加频繁项数据
+        * */
+        for(FrequentItem f : frequentItems){
+            warningMapper.insertFrequentItem(f);
+            boolean first = true;
+            for (Warning w : f.getItems()){
+                if (first){
+                    warningMapper.insertFrequentWarning(f.getId(), StringUtils.UUID(),"0",w);
+                    first = false;
+                }else {
+                    warningMapper.insertFrequentWarning(f.getId(), StringUtils.UUID(),"1",w);
+                }
+            }
+        }
+
+    }
+
+    public List<FrequentItem> findFrequentItemWithWarning(){
+        return warningMapper.findFrequentItemWithWarning();
+    }
+
+    public void insertTest(){
+        Warning warning = new Warning();
+        warning.setId("id");
+        warning.setDeviceId("deviceId");
+        warning.setDegree("0");
+        warning.setStatus("0");
+        warning.setOid("oid");
+        warningMapper.insertFrequentWarning("itemID","newId","1",warning);
     }
 }

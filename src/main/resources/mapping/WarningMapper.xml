@@ -20,4 +20,54 @@
          </where>
          order by a.ProduceTime
     </select>
+
+    <insert id="insertFrequentItem" parameterType="edu.ncu.model.FrequentItem">
+        insert into frequent_items
+        (id, support, confidence, create_date, del_flag)
+        values (#{id},#{support},#{confidence},sysdate(),'0')
+    </insert>
+
+    <insert id="insertFrequentWarning" >
+        insert into frequent_warning
+        (id, items_id, first_item, device_id, oid, degree, status)
+        values (#{id},#{itemId},#{firstItem},#{warning.deviceId},#{warning.oid},#{warning.degree},#{warning.status})
+    </insert>
+
+    <!--订单查询关联用户和订单明细的信息的resultMap-->
+    <resultMap id="FrequentItemWithWarning" type="edu.ncu.model.FrequentItem" >
+        <!--配置订单信息 使用继承下面的-->
+        <!--配置订单关联的用户信息 使用继承下面的-->
+        <!--配置订单关联的订单明细信息
+            一条订单关联查询出了多条明细，要使用collection进行映射
+            collection :对关联查询到多条记录映射到集合中
+            property：将关联查询到的多条记录映射到com.djp.pojo.Orders中的哪个属性
+            ofType:指定映射到list集合属性中的pojo的类型
+        -->
+        <id column="id" property="id"/>
+        <result column="support" property="support"/>
+        <result column="confidence" property="confidence"/>
+        <collection property="items" ofType="edu.ncu.model.Warning">
+<!--
+            <id column="id" property="id"/>
+-->
+            <result column="device_id" property="deviceId"/>
+            <result column="oid" property="oid"/>
+            <result column="degree" property="degree"/>
+            <result column="status" property="status"/>
+        </collection>
+    </resultMap>
+    <!--查询订单明细关联查询用户信息和订单明细信息的statement-->
+    <select id="findFrequentItemWithWarning" resultMap="FrequentItemWithWarning">
+        select
+            t1.id ,
+            t1.support,
+            t1.confidence,
+            t2.device_id ,
+            t2.oid ,
+            t2.degree ,
+            t2.status
+          from
+          frequent_items t1 left join frequent_warning t2 on t1.id = t2.items_id
+    </select>
+
 </mapper>

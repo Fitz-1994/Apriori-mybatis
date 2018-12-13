@@ -1,6 +1,6 @@
 package edu.ncu.controller;
 
-import edu.ncu.model.FrequentItems;
+import edu.ncu.model.FrequentItem;
 import edu.ncu.service.warning.WarningService;
 import edu.ncu.utils.Aprori;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +20,9 @@ public class WarningController {
     @Autowired
     private Aprori aprori;
 
-    @RequestMapping(value = "test")
-    public ResponseEntity test(){
-        List<FrequentItems> list = aprori.getFrequentItems();
-        System.out.println(list);
-        return ResponseEntity.ok("test success");
+    @RequestMapping(value = "warning")
+    public ResponseEntity warning(){
+        List<FrequentItem> list = warningService.findFrequentItemWithWarning();
+        return ResponseEntity.ok(list);
     }
 }

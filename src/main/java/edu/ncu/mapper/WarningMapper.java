@@ -1,5 +1,6 @@
 package edu.ncu.mapper;
 
+import edu.ncu.model.FrequentItem;
 import edu.ncu.model.Warning;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -20,4 +21,20 @@ public interface WarningMapper {
      * @return
      */
     List<Warning> findList(@Param(value = "start") Date start,@Param("end") Date end);
+
+    /**
+     * 将挖掘出来的频繁项写入数据库中
+     * @param frequentItem
+     */
+    void insertFrequentItem(FrequentItem frequentItem);
+
+    /**
+     * @param id
+     * @param firstItem
+     * @param warning
+     */
+    void insertFrequentWarning(@Param("itemId") String itemId, @Param(value = "id") String id,@Param("firstItem") String firstItem, @Param("warning") Warning warning);
+
+    List<FrequentItem> findFrequentItemWithWarning();
+
 }

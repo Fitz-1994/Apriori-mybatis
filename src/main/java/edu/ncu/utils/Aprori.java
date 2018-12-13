@@ -1,6 +1,6 @@
 package edu.ncu.utils;
 
-import edu.ncu.model.FrequentItems;
+import edu.ncu.model.FrequentItem;
 import edu.ncu.model.Warning;
 import edu.ncu.service.warning.WarningService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,18 +31,18 @@ public class Aprori {
 	Map<Integer, Integer> dCountMap = new HashMap<Integer, Integer>(); // k-1频繁集的记数表
 	Map<Integer, Integer> dkCountMap = new HashMap<Integer, Integer>();// k频繁集的记数表
 	List<List<Warning>> record = new ArrayList<>();// 数据记录表
-	final static double MIN_SUPPORT = 0.2;// 最小支持度
-	final static double MIN_CONF = 0.8;// 最小置信度
+	final static double MIN_SUPPORT = 0.1;// 最小支持度
+	final static double MIN_CONF = 0.6;// 最小置信度
 	int lable = 1;// 用于输出时的一个标记，记录当前在打印第几级关联集
 	List<Double> confCount = new ArrayList<Double>();// 置信度记录表
-	List<FrequentItems> confItemset = new ArrayList<>();// 满足支持度的集合
+	List<FrequentItem> confItemset = new ArrayList<>();// 满足支持度的集合
 
 
-	public List<FrequentItems> getFrequentItems(){
+	public List<FrequentItem> getFrequentItems(){
 		record = getRecord();
 		List<List<Warning>> cItemset = findFirstCandidate();// 获取第一次的备选集
 		List<List<Warning>> lItemset = getSupportedItemset(cItemset);// 获取备选集cItemset满足支持的集合
-		List<FrequentItems> result = new ArrayList<>();
+		List<FrequentItem> result = new ArrayList<>();
 
 		while (endTag != true) {// 只要能继续挖掘
 			List<List<Warning>> ckItemset = getNextCandidate(lItemset);// 获取第下一次的备选集
@@ -62,12 +62,19 @@ public class Aprori {
 		return result;
 	}
 
+    /**
+     * 将关联规则挖掘出的频繁项集存入数据库中
+     */
+	public void saveFrequentItems(){
+		warningService.saveFrequentItems(getFrequentItems());
+	}
+
 
 	/**
 	 * @param confItemset2
 	 * 输出满足条件的频繁集
 	 */
-	private static void printConfItemset(List<FrequentItems> confItemset2) {
+	private static void printConfItemset(List<FrequentItem> confItemset2) {
 		System.out.print("*********频繁模式挖掘结果***********\n");
 		for (int i = 0; i < confItemset2.size(); i++) {
 			int j = 0;
@@ -123,7 +130,7 @@ public class Aprori {
 				Double relativeSupport = count * 1.0 / (record.size() - 1);
 				/*testList.add(relativeSupport.toString());
 				testList.add(conf.toString());*/
-				confItemset.add(new FrequentItems(testList,relativeSupport,conf));//添加到满足自信度的集合中
+				confItemset.add(new FrequentItem(testList,relativeSupport,conf));//添加到满足自信度的集合中
 			}
 		}
 	}
