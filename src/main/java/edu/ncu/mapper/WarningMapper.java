@@ -41,4 +41,8 @@ public interface WarningMapper {
 
     void deleteFrequentWarning();
 
+    List<String> findFrequentItemByFators(String deviceId,String oid,String degree);
+
+    List<FrequentItem> findFrequentItemByIds(List<String> ids);
+
 }

@@ -85,6 +85,11 @@ public class WarningService {
         return warningMapper.findFrequentItemWithWarning();
     }
 
+    public List<FrequentItem> findFrequentItemByFators(String deviceId,String oid,String degree){
+        List<String> ids = warningMapper.findFrequentItemByFators(deviceId, oid, degree);
+        return warningMapper.findFrequentItemByIds(ids);
+    }
+
     public void deleteFrequentItems(){
         warningMapper.deleteFrequentWarning();
         warningMapper.deleteFrequentItems();

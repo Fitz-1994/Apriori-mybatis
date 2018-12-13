@@ -26,6 +26,13 @@ public class WarningController {
         return ResponseEntity.ok(list);
     }
 
+    @RequestMapping(value = "select")
+    public ResponseEntity select(String deviceId,String oid,String degree){
+        List<FrequentItem> list = warningService.findFrequentItemByFators(deviceId,oid,degree);
+        return ResponseEntity.ok(list);
+    }
+
+
     @RequestMapping(value = "update")
     public ResponseEntity updateFrequentItems(){
         aprori.saveFrequentItems();
