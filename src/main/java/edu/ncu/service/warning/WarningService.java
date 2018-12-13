@@ -85,6 +85,11 @@ public class WarningService {
         return warningMapper.findFrequentItemWithWarning();
     }
 
+    public void deleteFrequentItems(){
+        warningMapper.deleteFrequentWarning();
+        warningMapper.deleteFrequentItems();
+    }
+
     public void insertTest(){
         Warning warning = new Warning();
         warning.setId("id");

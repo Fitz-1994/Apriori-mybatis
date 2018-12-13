@@ -25,4 +25,10 @@ public class WarningController {
         List<FrequentItem> list = warningService.findFrequentItemWithWarning();
         return ResponseEntity.ok(list);
     }
+
+    @RequestMapping(value = "update")
+    public ResponseEntity updateFrequentItems(){
+        aprori.saveFrequentItems();
+        return ResponseEntity.ok("update success");
+    }
 }

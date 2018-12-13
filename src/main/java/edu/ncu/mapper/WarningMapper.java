@@ -37,4 +37,8 @@ public interface WarningMapper {
 
     List<FrequentItem> findFrequentItemWithWarning();
 
+    void deleteFrequentItems();
+
+    void deleteFrequentWarning();
+
 }

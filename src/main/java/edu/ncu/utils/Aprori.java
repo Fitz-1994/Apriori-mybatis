@@ -66,6 +66,8 @@ public class Aprori {
      * 将关联规则挖掘出的频繁项集存入数据库中
      */
 	public void saveFrequentItems(){
+		warningService.deleteFrequentItems();
+
 		warningService.saveFrequentItems(getFrequentItems());
 	}
 

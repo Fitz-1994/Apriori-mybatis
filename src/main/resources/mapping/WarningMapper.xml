@@ -70,4 +70,11 @@
           frequent_items t1 left join frequent_warning t2 on t1.id = t2.items_id
     </select>
 
+    <delete id="deleteFrequentItems">
+        delete from frequent_items
+    </delete>
+    <delete id="deleteFrequentWarning">
+        delete from frequent_warning
+    </delete>
+
 </mapper>
