@@ -2,7 +2,9 @@ package edu.ncu.service.warning;
 
 import edu.ncu.mapper.WarningMapper;
 import edu.ncu.model.FrequentItem;
+import edu.ncu.model.OidThreshold;
 import edu.ncu.model.Warning;
+import edu.ncu.service.OidValueService;
 import edu.ncu.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,8 @@ import java.util.List;
 public class WarningService {
     @Autowired
     private WarningMapper warningMapper;
+    @Autowired
+    private OidValueService oidvalueService;
 
     /**
      * 查询所有告警数据的方法
@@ -61,6 +65,10 @@ public class WarningService {
         }
     }
 
+    /**
+     * 保存频繁项集数据
+     * @param frequentItems
+     */
     public void saveFrequentItems(List<FrequentItem> frequentItems){
         /*
         * 1、在Frequent_Items表中添加数据
@@ -95,6 +103,20 @@ public class WarningService {
         warningMapper.deleteFrequentItems();
     }
 
+    public void getNewWarning(){
+        String webServer = "10.108.8.58";
+        String oracleServer = "10.108.8.59";
+        List<String> ipList = new ArrayList<>();
+        ipList.add(webServer);
+        ipList.add(oracleServer);
+        List<OidThreshold> oidList = oidvalueService.getOidList(ipList);
+
+        /*for (OidThreshold oid : oidList){
+            List<OidValue> oidValueList = oidvalueService.getOidValue(webServer,oid.getOid());
+        }*/
+        System.out.println(1);
+    }
+
     public void insertTest(){
         Warning warning = new Warning();
         warning.setId("id");
@@ -104,4 +126,6 @@ public class WarningService {
         warning.setOid("oid");
         warningMapper.insertFrequentWarning("itemID","newId","1",warning);
     }
+
+
 }

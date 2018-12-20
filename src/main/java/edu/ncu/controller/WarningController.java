@@ -1,6 +1,7 @@
 package edu.ncu.controller;
 
 import edu.ncu.model.FrequentItem;
+import edu.ncu.service.OidValueService;
 import edu.ncu.service.warning.WarningService;
 import edu.ncu.utils.Aprori;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ public class WarningController {
     private WarningService warningService;
     @Autowired
     private Aprori aprori;
+    @Autowired
+    private OidValueService oidValueService;
 
     @RequestMapping(value = "warning")
     public ResponseEntity warning(){
@@ -37,5 +40,11 @@ public class WarningController {
     public ResponseEntity updateFrequentItems(){
         aprori.saveFrequentItems();
         return ResponseEntity.ok("update success");
+    }
+
+    @RequestMapping(value = "test")
+    public ResponseEntity test(){
+        warningService.getNewWarning();
+        return ResponseEntity.ok("test success");
     }
 }

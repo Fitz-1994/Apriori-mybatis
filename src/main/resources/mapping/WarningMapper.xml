@@ -15,7 +15,7 @@
                  and a.ProduceTime &gt;= #{start}
              </if>
              <if test="end != null and end !='' ">
-                 and a.ProduceTime &lt;= #{start}
+                 and a.ProduceTime &lt;= #{end}
              </if>
          </where>
          order by a.ProduceTime
@@ -108,4 +108,7 @@
         delete from frequent_warning
     </delete>
 
+    <select id="getOidValue">
+        select
+    </select>
 </mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="edu.ncu.mapper.OidValueMapper">
+    <select id="getOidValue" resultType="edu.ncu.model.OidValue">
+    select
+       a.id,
+       a.oid_id as oidId,
+       c.cap_ip as deviceIp,
+       a.oid,
+       a.oidvalue as oidValue,
+       a.produceTime,
+       a.create_date as createDate
+    from oid_value a left join oid b on a.oid_id=b.id
+    left join cap_server c on c.id = b.oid_device
+    where c.cap_ip=#{ip} and a.oid=#{oid} and a.warning = '0'
+    order by a.produceTime
+    </select>
+
+    <select id="getOidList" resultType="edu.ncu.model.OidThreshold">
+        select
+        cap_ip as ip,
+        oid_oid as oid,
+        threshold1,
+        threshold2,
+        threshold3
+        from oid a left join cap_server b on a.oid_device = b.id
+        where b.cap_ip in
+        <foreach item="ip" collection="ips" open="(" separator="," close=")">
+            #{ip}
+        </foreach>
+    </select>
+</mapper>
